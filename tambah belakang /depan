@@ -1,0 +1,122 @@
+#include <iostream>
+using namespace std;
+
+struct Node
+{
+    int data;
+    Node *next;
+};
+
+struct MyList
+{
+    Node *head;
+    void tambahBelakang(int);
+    void hapusDepan();
+    void hapusBelakang();
+    void hapus(int);
+    MyList()
+    {
+        head = new Node;
+        head = NULL;
+    }
+    bool isEmpty()
+    {
+        return head == NULL;
+    }
+    void tambahDepan(int databaru)
+    {
+        Node *baru;
+        baru = new Node;
+        baru->data = databaru;
+        baru->next = NULL;
+
+        if (isEmpty())
+        {
+            head = baru;
+        }
+        else
+        {
+            baru->next = head;
+            head = baru;
+        }
+    }
+
+    void cetak()
+    {
+        if (isEmpty())
+        {
+            cout << "List kosong";
+        }
+        else
+        {
+            Node *bantu;
+            bantu = head;
+            while (bantu != NULL)
+            {
+                cout << bantu->data << endl;
+                bantu = bantu->next;
+            }
+        }
+    }
+};
+
+void MyList::hapusDepan()
+{
+    if (isEmpty())
+    {
+        cout << "List kosong" << endl;
+    }
+    else
+    {if(head->next ==NULL){delete head;
+    head=NULL;}
+    else{
+        Node *hapus = head;
+        head = hapus->next;
+        delete hapus;
+    }
+    }
+}
+void MyList::tambahBelakang(int databaru)
+{
+    Node *baru, *bantu;
+
+    baru = new Node;
+    baru->data = databaru;
+    baru->next = NULL;
+
+    if (isEmpty())
+    {
+        head = baru;
+    }
+    else
+    {
+        bantu = head;
+
+        while (bantu->next != NULL)
+        {
+            bantu = bantu->next;
+        }
+
+        bantu->next = baru;
+    }
+}
+int main()
+{
+    MyList list;
+
+    list.hapusDepan(); // List kosong
+
+    list.tambahDepan(5);
+    list.tambahDepan(20);
+    list.tambahDepan(10);
+    
+    list.tambahBelakang(27);
+
+    list.cetak(); 
+
+    list.hapusDepan();
+
+    list.cetak();  
+
+    return 0;
+}
